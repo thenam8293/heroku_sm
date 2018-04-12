@@ -63,11 +63,12 @@ def str_to_dt(x):
 
 
 
-n = xlrd.open_workbook(r'tho_cu_dn.xlsx')
+n = xlrd.open_workbook(r'bt.xlsx')
 sheet = n.sheet_by_index(0)
 print (sheet.nrows)
 
 for i in range(1,sheet.nrows):
+    print (i)
     name1 = sheet.cell(i,0).value
     name2 = sheet.cell(i,1).value
     name3 = sheet.cell(i,2).value
@@ -76,10 +77,11 @@ for i in range(1,sheet.nrows):
     name6 = sheet.cell(i,5).value
     name7 = sheet.cell(i,6).value
     name8 = sheet.cell(i,7).value
+    name9 = sheet.cell(i,8).value
+    name10 = sheet.cell(i,9).value
+    r = [name1, name2, name3, name4, name5, name6, name9, name10, name7, name8]
 
-    r = [name1, name2, name3, name4, name5, name6, name7, name8, name3 +", "+ name2 +", "+ name1, 'MB']
-
-    sqlite("INSERT INTO data_mb values({})".format(",".join(["?"]*10)), r)
+    sqlite("INSERT INTO bds_lien_ke_bt values({})".format(",".join(["?"]*10)), r)
 
 
 
