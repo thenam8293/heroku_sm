@@ -433,9 +433,9 @@ def ajax_get_result():
 
 
 #---------------- PAGE ------------------
-# @app.route('/', methods=['GET', 'POST'])
-# def index():
-#     return render_template('index.html')
+@app.route('/index', methods=['GET', 'POST'])
+def index():
+    return render_template('index.html')
 
 # ----------------ADMIN -----------------
 @app.route('/', methods=['GET', 'POST'])
@@ -446,7 +446,7 @@ def login():
         pwd = request.form.get("pd")
         check_user = db.session.query(User_SM.phan_quyen, User_SM.name).filter_by(username = user, passhash = hash_user(pwd)).distinct().all()
 
-        if check_user[0]:
+        if check_user:
             session['username'] = user
             session['role'] = check_user[0].phan_quyen
             session['name'] = check_user[0].name
@@ -456,6 +456,21 @@ def login():
             return redirect(url_for("login"))
     return render_template('login.html')
     
+
+
+@app.route('/authentication', methods=['GET', 'POST'])
+def authentication():
+    user = request.args["usn"]
+    pwd = request.args["pd"]
+    check_user = db.session.query(User_SM.phan_quyen, User_SM.name).filter_by(username = user, passhash = hash_user(pwd)).distinct().all()
+    if check_user:
+        session['username'] = user
+        session['role'] = check_user[0].phan_quyen
+        session['name'] = check_user[0].name
+        session['logged_in'] = True
+        return jsonify({'result' : 'check_gia'})
+    else:
+        return jsonify({'result' : 'login'})
 
 
 @app.route('/logout')
@@ -569,36 +584,29 @@ def shutdown():
     return 'Server shutting down...'
 
 
-# ten_du_an= 'Vinhome Riverside'
-# ten_duong= 'Đường Anh Đào 11'
-# ten_tang= 'Biệt thự'
-# ma_can= 'AD11-04'
-
-# result = db.session.query(BDS_biet_thu.dien_tich_dat, BDS_biet_thu.dien_tich_san_xay_dung, BDS_biet_thu.tong_gia_tri_xay_tho, BDS_biet_thu.tong_gia_tri_hoan_thien, BDS_biet_thu.don_gia_dat, BDS_biet_thu.don_gia_ctxd).filter_by(ten_du_an = ten_du_an, ten_duong = ten_duong, ten_tang = ten_tang, ma_can = ma_can).distinct().all()[0]
-# print (result.dien_tich_dat)
-
-# if __name__ == '__main__':
-#     app.debug = True
-#     HOST = environ.get('server_host', 'localhost')
-#     # HOST = environ.get('server_host', '192.168.0.117')
-
-# ##    NAME = environ.get('server_name','phu.co.tcb.vn:8888')
-#     # HOST = environ.get('server_host', 'localhost')
-#     try:
-#         # PORT = int(environ.get('8080', '8888'))
-#         PORT = int(environ.get('server_port', '8808'))
-#     except ValueError:
-#         PORT = 8808
-#     app.run(HOST, PORT, threaded = True)
-
 
 if __name__ == '__main__':
-    # Run the app on all available interfaces on port 80 which is the
-    # standard port for HTTP
-    # db.create_all()
+    app.debug = True
+    HOST = environ.get('server_host', 'localhost')
+    # HOST = environ.get('server_host', '192.168.0.105')
 
-    port = int(os.environ.get("PORT", 33507))
-    app.run(
-        host="0.0.0.0",
-        port=port,
-    )
+##    NAME = environ.get('server_name','phu.co.tcb.vn:8888')
+    # HOST = environ.get('server_host', 'localhost')
+    try:
+        # PORT = int(environ.get('8080', '8888'))
+        PORT = int(environ.get('server_port', '33507'))
+    except ValueError:
+        PORT = 33507
+    app.run(HOST, PORT, threaded = True)
+
+
+# if __name__ == '__main__':
+#     # Run the app on all available interfaces on port 80 which is the
+#     # standard port for HTTP
+#     # db.create_all()
+
+#     port = int(os.environ.get("PORT", 33507))
+#     app.run(
+#         host="0.0.0.0",
+#         port=port,
+#     )

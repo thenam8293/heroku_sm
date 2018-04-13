@@ -146,8 +146,8 @@ File: Layout CSS
 
 /* Transition Fade
 --------------------------------------------------------------------------------------------------------------- */
-*, *::before, *::after{transition:all .3s ease-in-out;}
-#mainav form *{transition:none !important;}
+/**, *::before, *::after{transition:all .3s ease-in-out;}*/
+/*#mainav form *{transition:none !important;}*/
 
 
 /* ------------------------------------------------------------------------------------------------------------ */
@@ -169,7 +169,7 @@ nav ul, nav ol{margin:0; padding:0; list-style:none;}
 #mainav ul{}
 #mainav ul ul{z-index:9999; position:absolute; width:160px; text-align:left;}
 #mainav ul ul ul{left:160px; top:0;}
-#mainav li{display:block; position:relative; float:left; margin:0; padding:0; text-transform:uppercase;}
+/*#mainav li{display:block; position:relative; float:left; margin:0; padding:0; text-transform:uppercase;}*/
 #mainav li:last-child{margin-right:0;}
 #mainav li li{width:100%; margin:0; text-transform:none;}
 #mainav ul.clear{border:solid; border-width:0 0 0 1px;}
@@ -178,7 +178,7 @@ nav ul, nav ol{margin:0; padding:0; list-style:none;}
 #mainav li li:first-child a, #mainav li li:last-child a{border-width:0 0 1px 0;}
 #mainav .drop{padding-left:25px;}
 #mainav li li a, #mainav li li .drop{display:block; margin:0; padding:10px 15px;}
-#mainav .drop:after, #mainav li li .drop:after{content:"\f0d7";}
+/*#mainav .drop:after, #mainav li li .drop:after{content:"\f0d7";}*/
 #mainav .drop:after{top:25px; left:15px;}
 #mainav li li .drop:after{top:15px; left:5px;}
 #mainav ul ul{visibility:hidden; opacity:0;}
@@ -266,7 +266,7 @@ td{border-width:0 1px;}
 /* Colours
 --------------------------------------------------------------------------------------------------------------- */
 body{color:#888888; background-color:#EEEEEE;}
-a{color:#901e1d;}
+
 a:active, a:focus{background:transparent;}/* IE10 + 11 Bugfix - prevents grey background */
 hr, .borderedbox{border-color:#D7D7D7;}
 label span{color:#FF0000; background-color:inherit;}
@@ -374,7 +374,7 @@ table a, #comments a{background-color:inherit;}
 
 /* Mobile Devices
 --------------------------------------------------------------------------------------------------------------- */
-@media screen and (max-width:900px){
+/*@media screen and (max-width:900px){
 	.hoc{max-width:90%;}
 
 	#topbar{}
@@ -395,7 +395,7 @@ table a, #comments a{background-color:inherit;}
 
 	#copyright{}
 	#copyright p:first-of-type{margin-bottom:10px;}
-}
+}*/
 
 
 @media screen and (max-width:750px){
