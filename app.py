@@ -573,28 +573,28 @@ def shutdown():
 
 
 
-# if __name__ == '__main__':
-#     app.debug = True
-#     # HOST = environ.get('server_host', 'localhost')
-#     HOST = environ.get('server_host', '192.168.0.105')
-
-# ##    NAME = environ.get('server_name','phu.co.tcb.vn:8888')
-#     # HOST = environ.get('server_host', 'localhost')
-#     try:
-#         # PORT = int(environ.get('8080', '8888'))
-#         PORT = int(environ.get('server_port', '33507'))
-#     except ValueError:
-#         PORT = 33507
-#     app.run(HOST, PORT, threaded = True)
-
-
 if __name__ == '__main__':
-    # Run the app on all available interfaces on port 80 which is the
-    # standard port for HTTP
-    # db.create_all()
+    app.debug = True
+    # HOST = environ.get('server_host', 'localhost')
+    HOST = environ.get('server_host', '192.168.0.105')
 
-    port = int(os.environ.get("PORT", 33507))
-    app.run(
-        host="0.0.0.0",
-        port=port,
-    )
+##    NAME = environ.get('server_name','phu.co.tcb.vn:8888')
+    # HOST = environ.get('server_host', 'localhost')
+    try:
+        # PORT = int(environ.get('8080', '8888'))
+        PORT = int(environ.get('server_port', '33507'))
+    except ValueError:
+        PORT = 33507
+    app.run(HOST, PORT, threaded = True)
+
+
+# if __name__ == '__main__':
+#     # Run the app on all available interfaces on port 80 which is the
+#     # standard port for HTTP
+#     # db.create_all()
+
+#     port = int(os.environ.get("PORT", 33507))
+#     app.run(
+#         host="0.0.0.0",
+#         port=port,
+#     )

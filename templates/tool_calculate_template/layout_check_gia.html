@@ -118,14 +118,14 @@
       .div_dong {
           font-size: 70% !important
       }
-      h1, h2 {font-size: 90% !important; padding-left: 20px;}
+      h1, h2 {font-size: 150% !important; padding-left: 20px;}
       h3, h4 {
-          font-size: 80% !important; padding-left: 20px;
+          font-size: 90% !important; padding-left: 20px;
       }
-      #sidebar_main, #menu_toggle {display: none;}
+      #sidebar_main, #menu_toggle_lg {display: none;}
       #menu_toggle_m {display: inline-block;color: white;}
       #mainav a:hover{color:#901e1d;}
-      .sidenav {height: 100%; width: 0; position: fixed; z-index: 1; top: 0; left: 0; background-color: #b3b3b3; overflow-x: hidden; transition: 0.5s !important; } 
+      .sidenav {height: 100%; width: 0; position: fixed; z-index: 2 !important; top: 0; left: 0; background-color: #b3b3b3; overflow-x: hidden; transition: 0.5s !important; } 
 
       .sidenav>a {padding: 8px 8px 8px 20px; text-decoration: none; display: block; transition: 0.3s !important}
 
@@ -136,7 +136,7 @@
         background-color: #901e1d; height: 58px;
       }
       .nav.navbar-nav>li>a {color: white !important;}
-      a {white-space: nowrap;}
+      a {white-space: nowrap;color: black;}
       /*.toggle {
           position: fixed;
               top: 0;
@@ -159,7 +159,8 @@
      
   } 
   @media screen and (max-width:350px){
-     
+     h1, h2 {font-size: 110% !important; padding-left: 20px;}
+     h3, h4 {font-size: 80% !important; padding-left: 20px;}
   }
 
 </style>
@@ -206,31 +207,32 @@
                     <ul class="nav side-menu">                    
 
                       <!-- GIA THI TRUONG -->
-                      <li><a id="check_gia_thi_truong"><i class="fa fa-building"></i>GIÁ THỊ TRƯỜNG <span class="fa fa-chevron-down" style="color:black;"></span></a>
-                        <ul class="nav child_menu">
+                      <li><a id="check_gia_thi_truong" class_mobile="fa fa-building"><i class="fa fa-building"></i>GIÁ THỊ TRƯỜNG <span class="fa fa-chevron-down" style="color:black;"></span></a>
+                        <ul class="nav child_menu check_gia_thi_truong">
                             <li id="btn_tho_cu">
-                                <button type="button" class="button_custom" > Bất động sản thổ cư </button>
+                                <button type="button" id="check_gia_thi_truong|child_1" id_form="btn_tho_cu" class="button_custom " > Bất động sản thổ cư </button>
                             </li>
                             <li id="btn_chung_cu">
-                                <button type="button" class="button_custom" >Căn hộ chung cư</button>
+                                <button type="button" id="check_gia_thi_truong|child_2" id_form="btn_chung_cu" class="button_custom " >Căn hộ chung cư</button>
                             </li>
                             <li id="btn_biet_thu">
-                                <button type="button" class="button_custom" >Shophouse - Biệt thự liền kề</button>
+                                <button type="button" id="check_gia_thi_truong|child_3" id_form="btn_biet_thu" class="button_custom " >Shophouse - Biệt thự liền kề</button>
                             </li>
                         </ul>
                       </li>
+
                       <!-- KHUNG GIA NAH NUOC -->
-                      <li><a id="btn_uy_ban"><i class="fa fa-home"></i> KHUNG GIÁ NHÀ NƯỚC </a>
+                      <li><a id="btn_uy_ban" id_form="btn_uy_ban" class_mobile="fa fa-home"><i class="fa fa-home"></i> KHUNG GIÁ NHÀ NƯỚC </a>
                         
                       </li>
 
                       <!-- THONG TIN QUY HOACH -->
-                      <li><a id="btn_quy_hoach"><i class="fa fa-bar-chart"></i> THÔNG TIN QUY HOẠCH </a>
+                      <li><a id="btn_quy_hoach" id_form="btn_quy_hoach" class_mobile="fa fa-bar-chart"><i class="fa fa-bar-chart"></i> THÔNG TIN QUY HOẠCH </a>
                         
                       </li>
                       <!-- adminnnnn -->
                       {% if session['role'] == 'Admin' %}
-                        <li><a href="ad_cnb_min"><i class="fa fa-gear (alias)"></i> ADMINISTRATOR </a>                       
+                        <li><a href="ad_cnb_min" class_mobile="fa fa-gear"><i class="fa fa-gear (alias)"></i> ADMINISTRATOR </a>                       
                         </li>
                        {% endif %} 
                     </ul>
@@ -241,20 +243,21 @@
 
 
                 <script type="text/javascript">
-                    $(`[id^='btn_']`).click(function() {
+                    $(document).on("click", `[id^='btn_'], [id^='mobile_'][id*='|'], [id^='mobile_btn_']`, function() {
                         // alert($(this).attr("id"))
                         $('.active').removeClass('active')
                         $(this).addClass("active")
-                        let id_form = $(this).attr("id").split("btn_")[1]
+                        let id_form = $(this).attr("id_form").split("btn_")[1]
+
+
                         $(`#input_form_${id_form}`).css('display', '')
                         $(`#intro`).css('display', 'none')
-
                         $(`[id^='input_form_'][id!='input_form_${id_form}']`).css('display', 'none')
 
+                        closeNav()
 
                     })
-                    $("#check_gia_thi_truong").click(function() {
-
+                    $(document).on("click", "#check_gia_thi_truong, #mobile_check_gia_thi_truong", function() {
                         $("#input_form_quy_hoach, #input_form_uy_ban").css('display', 'none')
                     })
                 </script>
@@ -283,15 +286,35 @@
                     closeNav()
                   }
               })
-              $("#nav_sidebar").append(`<div style="width: 100%; height: 57px;margin-top:1px;"></div>`)
+              $("#nav_sidebar").append(`<div style="width: 100%; height: 57px;margin-top:1px;margin-bottom:18px;background-color:#b3b3b3;"></div>`)
+              // LEVEL 1
               $("#sidebar-menu a").each(function(){
                   var e=$(this)
+                  $("#nav_sidebar").append(`
+                      <a class="menu_side" id="mobile_${e.attr("id")}" id_form="${e.attr("id")}">
+                          <span class='${e.attr("class_mobile")}' style="margin-right:10px;color:#4d4d4d;"></span>
+                          ${e.text()}
+                      </a>`)
+                  $("#nav_sidebar").append(`<div class="mobile_${e.attr("id")}" style="display: none;margin-left: 5px;"></div>`)
                   // alert(e.text())
               })
+
+              // LEVEL 2
               $("#sidebar-menu button").each(function(){
                   var e=$(this)
+                  let id_child = e.attr("id").split("|")[0]
+                   $(`#nav_sidebar .mobile_${id_child}`).append(`
+                      <a id="mobile_${e.attr("id")}" id_form="${e.attr("id_form")}">
+                          <span class="fa fa-mail-forward" style="font-size:70%;"></span>
+                          ${e.text()}
+                      </a>`)
                   // alert(e.text())
               })
+              $(".menu_side").click(function() {
+                let id_ = $(this).attr("id")
+                $(`.${id_}`).slideToggle()
+                $(`[class^='mobile_'][class!=${id_}]`).slideUp()
+            })
               function openNav() {
                   document.getElementById("nav_sidebar").style.width = "70%";
 
