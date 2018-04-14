@@ -438,30 +438,18 @@ def index():
     return render_template('index.html')
 
 # ----------------ADMIN -----------------
-@app.route('/', methods=['GET', 'POST'])
+# @app.route('/', methods=['GET', 'POST'])
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    if request.method == 'POST':
-        user = request.form.get("usn")
-        pwd = request.form.get("pd")
-        check_user = db.session.query(User_SM.phan_quyen, User_SM.name).filter_by(username = user, passhash = hash_user(pwd)).distinct().all()
-
-        if check_user:
-            session['username'] = user
-            session['role'] = check_user[0].phan_quyen
-            session['name'] = check_user[0].name
-            session['logged_in'] = True
-            return redirect(url_for("check_gia"))
-        else:
-            return redirect(url_for("login"))
+    
     return render_template('login.html')
     
 
 
 @app.route('/authentication', methods=['GET', 'POST'])
 def authentication():
-    user = request.args["usn"]
-    pwd = request.args["pd"]
+    user = request.args["usn"].lower()
+    pwd = request.args["pd"].lower()
     check_user = db.session.query(User_SM.phan_quyen, User_SM.name).filter_by(username = user, passhash = hash_user(pwd)).distinct().all()
     if check_user:
         session['username'] = user
@@ -585,28 +573,28 @@ def shutdown():
 
 
 
-if __name__ == '__main__':
-    app.debug = True
-    HOST = environ.get('server_host', 'localhost')
-    # HOST = environ.get('server_host', '192.168.0.105')
-
-##    NAME = environ.get('server_name','phu.co.tcb.vn:8888')
-    # HOST = environ.get('server_host', 'localhost')
-    try:
-        # PORT = int(environ.get('8080', '8888'))
-        PORT = int(environ.get('server_port', '33507'))
-    except ValueError:
-        PORT = 33507
-    app.run(HOST, PORT, threaded = True)
-
-
 # if __name__ == '__main__':
-#     # Run the app on all available interfaces on port 80 which is the
-#     # standard port for HTTP
-#     # db.create_all()
+#     app.debug = True
+#     # HOST = environ.get('server_host', 'localhost')
+#     HOST = environ.get('server_host', '192.168.0.105')
 
-#     port = int(os.environ.get("PORT", 33507))
-#     app.run(
-#         host="0.0.0.0",
-#         port=port,
-#     )
+# ##    NAME = environ.get('server_name','phu.co.tcb.vn:8888')
+#     # HOST = environ.get('server_host', 'localhost')
+#     try:
+#         # PORT = int(environ.get('8080', '8888'))
+#         PORT = int(environ.get('server_port', '33507'))
+#     except ValueError:
+#         PORT = 33507
+#     app.run(HOST, PORT, threaded = True)
+
+
+if __name__ == '__main__':
+    # Run the app on all available interfaces on port 80 which is the
+    # standard port for HTTP
+    # db.create_all()
+
+    port = int(os.environ.get("PORT", 33507))
+    app.run(
+        host="0.0.0.0",
+        port=port,
+    )
